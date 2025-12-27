@@ -29,8 +29,8 @@
 ## Phase 1: Setup
 
 - [x] T001 Create project structure per implementation plan
-- [ ] T002 Install dependencies: framer-motion, lucide-react, clsx, tailwind-merge, tailwindcss-animate
-- [ ] T003 Verify Next.js 15 setup with App Router
+- [x] T002 Install dependencies: framer-motion, lucide-react, clsx, tailwind-merge, tailwindcss-animate
+- [x] T003 Verify Next.js 15 setup with App Router
 
 ## Phase 2: Foundation
 
@@ -53,14 +53,14 @@
 
 ## Phase 5: User Story 1 - Portfolio Browsing
 
-- [ ] T014 [US1] Build components/sections/hero.tsx with the glowing orb animation
-- [ ] T015 [US1] Build components/sections/skills.tsx (implementing the Progress Bars and Orbs)
-- [ ] T016 [US1] Build components/sections/education-timeline.tsx (rendering the GIAIC data)
-- [ ] T017 [US1] Build components/sections/certifications.tsx (Holographic cards grid)
+- [x] T014 [US1] Build components/sections/hero.tsx with the glowing orb animation
+- [x] T015 [US1] Build components/sections/skills.tsx (implementing the Progress Bars and Orbs)
+- [x] T016 [US1] Build components/sections/education-timeline.tsx (rendering the GIAIC data)
+- [x] T017 [US1] Build components/sections/certifications.tsx (Holographic cards grid)
 
 ## Phase 6: User Story 2 - Contact Engagement
 
-- [ ] T018 [US2] Build components/sections/contact.tsx (UI-only form with glass inputs)
+- [x] T018 [US2] Build components/sections/contact.tsx (UI-only form with glass inputs)
 - [ ] T019 [US2] Implement contact form validation
 
 ## Phase 7: User Story 3 - Education and Experience Verification
