@@ -45,11 +45,11 @@
 
 ## Phase 4: UI Components [US1]
 
-- [ ] T009 [P] [US1] Build components/ui/glass-card.tsx (reusable wrapper with backdrop blur and border)
-- [ ] T010 [P] [US1] Build components/ui/neon-button.tsx (primary and secondary variants)
-- [ ] T011 [P] [US1] Build components/ui/skill-bar.tsx (progress bar component)
-- [ ] T012 [P] [US1] Build components/ui/skill-orb.tsx (circular skill visualization)
-- [ ] T013 [P] [US1] Build components/ui/animated-orb.tsx (animated glowing orb component)
+- [x] T009 [P] [US1] Build components/ui/glass-card.tsx (reusable wrapper with backdrop blur and border)
+- [x] T010 [P] [US1] Build components/ui/neon-button.tsx (primary and secondary variants)
+- [x] T011 [P] [US1] Build components/ui/skill-bar.tsx (progress bar component)
+- [x] T012 [P] [US1] Build components/ui/skill-orb.tsx (circular skill visualization)
+- [x] T013 [P] [US1] Build components/ui/animated-orb.tsx (animated glowing orb component)
 
 ## Phase 5: User Story 1 - Portfolio Browsing
 
