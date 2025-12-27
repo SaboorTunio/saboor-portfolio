@@ -40,8 +40,8 @@
 
 ## Phase 3: Data Layer
 
-- [ ] T007 Create lib/data.ts with GIAIC Timeline, Skills (Percentages), and Certifications data
-- [ ] T008 Ensure "Forex Trading" is excluded from data file
+- [x] T007 Create lib/data.ts with GIAIC Timeline, Skills (Percentages), and Certifications data
+- [x] T008 Ensure "Forex Trading" is excluded from data file
 
 ## Phase 4: UI Components [US1]
 
