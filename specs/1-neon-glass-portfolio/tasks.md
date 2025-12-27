@@ -28,15 +28,15 @@
 
 ## Phase 1: Setup
 
-- [ ] T001 Create project structure per implementation plan
+- [x] T001 Create project structure per implementation plan
 - [ ] T002 Install dependencies: framer-motion, lucide-react, clsx, tailwind-merge, tailwindcss-animate
 - [ ] T003 Verify Next.js 15 setup with App Router
 
 ## Phase 2: Foundation
 
-- [ ] T004 Configure tailwind.config.ts with "Neon Glass" colors (Void Black background, Cyan/Purple accents) and animations
-- [ ] T005 Update globals.css to set the dark background and import Geist Mono / Inter fonts
-- [ ] T006 Create lib/utils.ts for the cn (class merging) helper
+- [x] T004 Configure tailwind.config.ts with "Neon Glass" colors (Void Black background, Cyan/Purple accents) and animations
+- [x] T005 Update globals.css to set the dark background and import Geist Mono / Inter fonts
+- [x] T006 Create lib/utils.ts for the cn (class merging) helper
 
 ## Phase 3: Data Layer
 
