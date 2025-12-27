@@ -65,15 +65,15 @@
 
 ## Phase 7: User Story 3 - Education and Experience Verification
 
-- [ ] T020 [US3] Enhance education timeline with interactive elements
+- [x] T020 [US3] Enhance education timeline with interactive elements
 - [ ] T021 [US3] Add certification details and hover effects
 
 ## Phase 8: Assembly & Polish
 
-- [ ] T022 Assemble all sections in app/page.tsx
+- [x] T022 Assemble all sections in app/page.tsx
 - [ ] T023 Review and refine Framer Motion entry effects (staggered fade-ins)
-- [ ] T024 Add current focus section to the portfolio
-- [ ] T025 Implement social links with brand color glows
+- [x] T024 Add current focus section to the portfolio
+- [x] T025 Implement social links with brand color glows
 - [ ] T026 Add responsive design refinements
 - [ ] T027 Final testing and cross-browser compatibility check
 
