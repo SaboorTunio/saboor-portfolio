@@ -42,7 +42,10 @@ export default function EducationTimeline() {
                   <div className="w-4 h-4 rounded-full bg-[#050505]"></div>
                 </div>
 
-                <div className="bg-[#ffffff0d] backdrop-blur-xl border border-[#ffffff1a] rounded-lg p-4">
+                <motion.div
+                  className="bg-[#ffffff0d] backdrop-blur-xl border border-[#ffffff1a] rounded-lg p-4 hover:border-[#ffffff30] transition-all duration-300 cursor-default"
+                  whileHover={{ scale: 1.02 }}
+                >
                   <div className="flex justify-between items-start">
                     <div>
                       <span className="text-[#06b6d4] font-medium">{item.quarter}</span>
@@ -52,7 +55,7 @@ export default function EducationTimeline() {
                       {item.status}
                     </span>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
