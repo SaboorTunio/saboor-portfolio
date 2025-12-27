@@ -19,14 +19,15 @@ export default function Certifications() {
           {certificationsData.map((cert, index) => (
             <motion.div
               key={cert.id}
-              className="glass-card bg-[#ffffff0d] backdrop-blur-xl border border-[#ffffff1a] rounded-xl p-6 hover:border-[#ffffff30] transition-all duration-300"
+              className="glass-card bg-[#ffffff0d] backdrop-blur-xl border border-[#ffffff1a] rounded-xl p-6 transition-all duration-300"
               style={{
                 border: `1px solid ${cert.brandColor}20`,
                 boxShadow: `0 0 15px ${cert.brandColor}20`
               }}
               whileHover={{
                 scale: 1.03,
-                boxShadow: `0 0 20px ${cert.brandColor}40`
+                boxShadow: `0 0 20px ${cert.brandColor}40`,
+                borderColor: `${cert.brandColor}40`
               }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
