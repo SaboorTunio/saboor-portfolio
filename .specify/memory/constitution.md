@@ -1,55 +1,52 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- SYNC IMPACT REPORT:
+Version change: 1.0.0 → 1.0.1
+Added sections: None
+Modified principles: Tech Stack Standardization (clarified tailwindcss-animate plugin)
+Removed sections: None
+Templates requiring updates: ✅ No existing templates to update
+Follow-up TODOs: None
+-->
+
+# Personal Portfolio Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Tech Stack Standardization
+All development must use the specified technology stack: Next.js 15 (App Router) as the framework, TypeScript with Strict Mode for type safety, Tailwind CSS with tailwindcss-animate for styling, Lucide React for icons, and Framer Motion for all animations and interactions.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### Functional Component Architecture
+All components must be functional components only, avoiding class components. Use lucide-react for all icons to maintain consistency. Follow Feature-First or Atomic Design patterns for file structure with dedicated directories like components/ui and components/sections.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### Mobile-First Responsive Design
+All UI implementations must follow a mobile-first design pattern, ensuring that the application is fully responsive and accessible on all device sizes, starting from mobile and scaling up to desktop.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### Dark Mode Only Theme
+The application must implement dark mode exclusively with hardcoded dark backgrounds. No light mode toggles or theme switching functionality should be implemented.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Strict Validation Requirements
+All implementations must pass strict validation: ensure no hydration errors by using useClient directives where necessary, and all images must have appropriate alt tags for accessibility.
 
-### [PRINCIPLE_6_NAME]
+### Animation Mandate
+All interactive elements must include animations using Framer Motion to provide smooth, engaging user experiences. No static transitions or default browser animations are permitted.
 
+## Coding Standards
 
-[PRINCIPLE__DESCRIPTION]
+### TypeScript Strict Mode
+All code must be written in TypeScript with Strict Mode enabled. This includes proper typing of all variables, function parameters, return types, and object properties to catch potential runtime errors at compile time.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### File Structure Organization
+Organize code using either Feature-First or Atomic Design principles. Create dedicated directories for UI components (components/ui) and feature sections (components/sections) to maintain clear separation of concerns and improve maintainability.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Validation Requirements
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+### Hydration Error Prevention
+Ensure no hydration errors occur by properly using 'use client' directives where client-side functionality is required. Server and client components must be clearly distinguished and properly implemented.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Accessibility Standards
+All images must include descriptive alt tags to ensure accessibility compliance. All interactive elements must meet WCAG standards for keyboard navigation and screen reader compatibility.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution serves as the authoritative guide for all development decisions in the Personal Portfolio project. All code reviews, architectural decisions, and implementation choices must align with these principles. Any deviations require explicit approval and documentation of the business justification.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.1 | **Ratified**: 2025-12-28 | **Last Amended**: 2025-12-28
