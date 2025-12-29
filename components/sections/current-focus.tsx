@@ -1,3 +1,5 @@
+"use client";
+
 import { currentFocus } from "@/lib/data";
 import { motion } from "framer-motion";
 
