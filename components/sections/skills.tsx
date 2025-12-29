@@ -1,3 +1,5 @@
+"use client";
+
 import GlassCard from "@/components/ui/glass-card";
 import SkillBar from "@/components/ui/skill-bar";
 import SkillOrb from "@/components/ui/skill-orb";
