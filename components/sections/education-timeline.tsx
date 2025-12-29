@@ -1,3 +1,5 @@
+"use client";
+
 import GlassCard from "@/components/ui/glass-card";
 import { educationData } from "@/lib/data";
 import { motion } from "framer-motion";
