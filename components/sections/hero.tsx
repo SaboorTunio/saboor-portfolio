@@ -1,3 +1,5 @@
+"use client";
+
 import GlassCard from "@/components/ui/glass-card";
 import NeonButton from "@/components/ui/neon-button";
 import AnimatedOrb from "@/components/ui/animated-orb";
