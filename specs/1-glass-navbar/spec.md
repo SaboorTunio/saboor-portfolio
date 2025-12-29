@@ -19,7 +19,7 @@
 * **Interactions:**
     * Desktop: Links glow **Neon Cyan** (`#06b6d4`) on hover.
     * Mobile: Hamburger menu icon (right side) opens a full-screen glass overlay.
-* **Animation:** Smooth fade-in on load; Mobile menu slides in using Framer Motion."
+* **Animation:** Smooth fade-in on load; Mobile menu slides in with smooth animation."
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -88,7 +88,7 @@ As a user resizing the browser window, I want the navigation bar to adapt from d
 - **FR-006**: System MUST include a hamburger menu icon on the right side for mobile devices
 - **FR-007**: System MUST open a full-screen glass overlay when hamburger menu is clicked on mobile
 - **FR-008**: System MUST animate the navigation bar with smooth fade-in effect on page load
-- **FR-009**: System MUST animate mobile menu with slide-in effect using Framer Motion
+- **FR-009**: System MUST animate mobile menu with smooth slide-in effect
 - **FR-010**: System MUST maintain navigation bar fixed at top center with z-index of 50 on desktop
 - **FR-011**: System MUST render navigation bar as rounded-full pill shape on desktop
 - **FR-012**: System MUST render navigation bar as full-width on mobile devices
