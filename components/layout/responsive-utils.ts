@@ -38,28 +38,6 @@ export function useScreenSize() {
   return screenSize;
 }
 
-// Hook to detect reduced motion preference
-export function useReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-      setPrefersReducedMotion(mediaQuery.matches);
-
-      const handleChange = (e: MediaQueryListEvent) => {
-        setPrefersReducedMotion(e.matches);
-      };
-
-      mediaQuery.addEventListener('change', handleChange);
-
-      return () => mediaQuery.removeEventListener('change', handleChange);
-    }
-  }, []);
-
-  return prefersReducedMotion;
-}
-
 // Function to check if current screen is mobile
 export function isMobile() {
   if (typeof window !== 'undefined') {
@@ -82,4 +60,29 @@ export function isDesktop() {
     return window.innerWidth >= BREAKPOINTS.lg;
   }
   return true; // Default to true for SSR
+}
+
+// Hook to detect if user prefers reduced motion
+export function useReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    // Check if the browser supports the reduced motion media query
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      setPrefersReducedMotion(mediaQuery.matches);
+
+      const handleChange = (event: MediaQueryListEvent) => {
+        setPrefersReducedMotion(event.matches);
+      };
+
+      // Listen for changes to the preference
+      mediaQuery.addEventListener('change', handleChange);
+
+      // Cleanup listener on unmount
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    }
+  }, []);
+
+  return prefersReducedMotion;
 }
