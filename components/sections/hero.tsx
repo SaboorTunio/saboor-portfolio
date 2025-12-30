@@ -160,7 +160,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-            className="flex justify-center"
+            className="flex justify-center "
           >
             <motion.div
               animate={{ y: [0, -20, 0] }}
@@ -172,7 +172,7 @@ export default function HeroSection() {
                 alt="Abdul Saboor Tunio - Full Stack Developer"
                 width={256}
                 height={256}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover px-5"
               />
             </motion.div>
           </motion.div>
