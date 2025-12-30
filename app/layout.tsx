@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist_Mono } from 'next/font/google';
 import './globals.css';
+import Navbar from '@/components/layout/navbar';
 
 const geistMono = Geist_Mono({ subsets: ['latin'] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistMono.className} bg-[#050505] text-white`}>
+        <Navbar />
         {children}
       </body>
     </html>
