@@ -1,14 +1,9 @@
 import { ReactNode } from 'react';
 
-export interface NavigationLink {
+export interface SocialLink {
   name: string;
-  path: string;
-  isActive?: boolean;
-  icon?: ReactNode;
-}
-
-export interface NavigationState {
-  isMobileMenuOpen: boolean;
-  currentBreakpoint: 'mobile' | 'tablet' | 'desktop';
-  activeLink: string;
+  icon: ReactNode;
+  url: string;
+  defaultColor: string;
+  hoverColor: string;
 }
