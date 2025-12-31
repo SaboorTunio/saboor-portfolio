@@ -144,13 +144,16 @@ export default function ContactSection() {
                 {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message.message}</p>}
               </div>
 
-              {/* Botpoison spam protection (hidden field) */}
-              <input
-                type="checkbox"
-                className="hidden"
-                id="botpoison"
-                {...register('botpoison')}
-              />
+              {/* Honeypot field for spam protection - should be hidden from users */}
+              <div className="hidden">
+                <label htmlFor="bot-field">Don't fill this out if you're human:</label>
+                <input
+                  id="bot-field"
+                  type="text"
+                  {...register('bot-field')}
+                  autoComplete="off"
+                />
+              </div>
 
               {submitError && (
                 <div className="text-red-400 text-sm">
