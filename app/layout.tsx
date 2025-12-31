@@ -7,7 +7,7 @@ import Footer from '@/components/layout/footer';
 const geistMono = Geist_Mono({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'AI Engineer & Full Stack Developer Portfolio',
+  title: 'Saboor-Tunio',
   description: 'Showcasing expertise in Next.js, Python, and Agentic AI with a futuristic Cyberpunk Glassmorphism aesthetic',
   icons: {
     icon: '/favicon.ico',
