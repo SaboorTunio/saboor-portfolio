@@ -1,3 +1,4 @@
+// IMPORTANT: Make sure to add NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY to your .env.local file
 "use client";
 
 import GlassCard from "@/components/ui/glass-card";
@@ -6,69 +7,80 @@ import { socialLinks } from "@/lib/data";
 import { motion } from "framer-motion";
 import { Mail, Github, Linkedin } from "lucide-react";
 import { useState } from "react";
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+// Define Zod validation schema
+const contactSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().min(1, 'Email is required').email('Email is invalid'),
+  message: z.string().min(1, 'Message is required').min(10, 'Message should be at least 10 characters'),
+  'bot-field': z.string().optional() // Honeypot field for spam protection
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const validate = () => {
-    const newErrors: Record<string, string> = {};
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting: isHookSubmitting },
+    reset,
+    setError
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      message: ''
     }
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-    } else if (formData.message.length < 10) {
-      newErrors.message = 'Message should be at least 10 characters';
-    }
-    return newErrors;
-  };
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
-    setFormData(prev => ({ ...prev, [id]: value }));
+  const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
+    setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Clear error when user starts typing
-    if (errors[id]) {
-      setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[id];
-        return newErrors;
-      });
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const validationErrors = validate();
-
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+    // Check if access key is available
+    if (!process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY) {
+      setSubmitError('Configuration error. Please contact the site administrator.');
+      setIsSubmitting(false);
       return;
     }
 
-    setIsSubmitting(true);
-
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setSubmitSuccess(true);
-      setFormData({ name: '', email: '', message: '' });
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          name: data.name,
+          email: data.email,
+          message: data.message,
+          'bot-field': data.botpoison ? 'true' : 'false' // Using bot-field for spam protection
+        })
+      });
 
-      // Reset success message after 5 seconds
-      setTimeout(() => setSubmitSuccess(false), 5000);
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setSubmitSuccess(true);
+        reset(); // Reset form after successful submission
+        // Hide success message after 5 seconds
+        setTimeout(() => setSubmitSuccess(false), 5000);
+      } else {
+        setSubmitError(result.message || 'Failed to send message. Please try again.');
+        // Set form-level error
+        setError('root', { message: result.message || 'Submission failed' });
+      }
     } catch (error) {
+      setSubmitError('An error occurred while sending the message. Please try again.');
       console.error('Error submitting form:', error);
     } finally {
       setIsSubmitting(false);
@@ -76,7 +88,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="py-16 px-4">
+    <section id="contact" className="py-16 px-4">
       <div className="max-w-4xl mx-auto">
         <motion.h2
           className="text-3xl font-bold text-center text-white mb-12 font-['Geist_Mono']"
@@ -95,18 +107,17 @@ export default function ContactSection() {
               <p className="text-gray-300">Thank you for reaching out. I'll get back to you soon.</p>
             </div>
           ) : (
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label htmlFor="name" className="block text-white mb-2">Name</label>
                 <input
                   type="text"
                   id="name"
-                  value={formData.name}
-                  onChange={handleChange}
+                  {...register('name')}
                   className={`w-full bg-[#ffffff0d] border ${errors.name ? 'border-red-500' : 'border-[#ffffff1a]'} rounded-lg px-4 py-3 text-white placeholder-[#a8a8a8] focus:outline-none focus:border-[#06b6d4] transition-colors`}
                   placeholder="Your name"
                 />
-                {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
+                {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name.message}</p>}
               </div>
 
               <div>
@@ -114,35 +125,47 @@ export default function ContactSection() {
                 <input
                   type="email"
                   id="email"
-                  value={formData.email}
-                  onChange={handleChange}
+                  {...register('email')}
                   className={`w-full bg-[#ffffff0d] border ${errors.email ? 'border-red-500' : 'border-[#ffffff1a]'} rounded-lg px-4 py-3 text-white placeholder-[#a8a8a8] focus:outline-none focus:border-[#06b6d4] transition-colors`}
                   placeholder="your.email@example.com"
                 />
-                {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
+                {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>}
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-white mb-2">Message</label>
                 <textarea
                   id="message"
-                  value={formData.message}
-                  onChange={handleChange}
+                  {...register('message')}
                   rows={5}
                   className={`w-full bg-[#ffffff0d] border ${errors.message ? 'border-red-500' : 'border-[#ffffff1a]'} rounded-lg px-4 py-3 text-white placeholder-[#a8a8a8] focus:outline-none focus:border-[#06b6d4] transition-colors resize-none`}
                   placeholder="Your message here..."
                 ></textarea>
-                {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message}</p>}
+                {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message.message}</p>}
               </div>
+
+              {/* Botpoison spam protection (hidden field) */}
+              <input
+                type="checkbox"
+                className="hidden"
+                id="botpoison"
+                {...register('botpoison')}
+              />
+
+              {submitError && (
+                <div className="text-red-400 text-sm">
+                  {submitError}
+                </div>
+              )}
 
               <div className="pt-4">
                 <NeonButton
                   variant="gradient"
                   className="w-full sm:w-auto"
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || isHookSubmitting}
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                  {isSubmitting || isHookSubmitting ? 'Sending...' : 'Send Message'}
                 </NeonButton>
               </div>
             </form>
