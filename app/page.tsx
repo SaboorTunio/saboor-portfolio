@@ -3,7 +3,7 @@ import { Geist_Mono } from "next/font/google";
 import HeroSection from "@/components/sections/hero";
 import SkillsSection from "@/components/sections/skills";
 import EducationTimeline from "@/components/sections/education-timeline";
-import Certifications from "@/components/sections/certifications";
+// import Certifications from "@/components/sections/certifications";
 import ContactSection from "@/components/sections/contact";
 import CurrentFocus from "@/components/sections/current-focus";
 
@@ -20,7 +20,7 @@ export default function Home() {
       <HeroSection />
       <SkillsSection />
       <EducationTimeline />
-      <Certifications />
+      {/* <Certifications /> */}
       <CurrentFocus />
       <ContactSection />
     </main>
