@@ -8,11 +8,11 @@ export default function Footer() {
   const [email, setEmail] = useState('');
 
   const quickLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'Skills', href: '/skills' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Home', href: '#' },
+    { name: 'About', href: '#about' },
+    // { name: 'Projects', href: '/projects' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
