@@ -9,6 +9,7 @@ interface NeonButtonProps {
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
 export default function NeonButton({
@@ -16,7 +17,8 @@ export default function NeonButton({
   variant = "neon-border",
   onClick,
   className = "",
-  disabled = false
+  disabled = false,
+  type = "button"
 }: NeonButtonProps) {
   const baseClasses = "px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center";
 
@@ -35,6 +37,7 @@ export default function NeonButton({
       onClick={onClick}
       disabled={disabled}
       className={buttonClasses}
+      type={type}
     >
       {children}
     </motion.button>
