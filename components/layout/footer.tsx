@@ -62,7 +62,7 @@ export default function Footer() {
           <h3 className="font-semibold text-white mb-4">Connect</h3>
           <div className="flex space-x-4">
             <a
-              href="https://github.com"
+              href="https://github.com/SaboorTunio"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors duration-200"
@@ -71,7 +71,7 @@ export default function Footer() {
               <Github size={20} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://linkedin.com/in/abdulsaboortunio"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-500 transition-colors duration-200"
@@ -80,7 +80,7 @@ export default function Footer() {
               <Linkedin size={20} />
             </a>
             <a
-              href="https://twitter.com"
+              href="https://x.com/Saboor__Tunio"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-400 transition-colors duration-200"
@@ -89,7 +89,7 @@ export default function Footer() {
               <Twitter size={20} />
             </a>
             <a
-              href="mailto:example@example.com"
+              href="mailto:saboortunio2021@gmail.com"
               className="text-gray-400 hover:text-cyan-400 transition-colors duration-200"
               aria-label="Email"
             >
@@ -122,16 +122,16 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/5 mt-12 pt-8">
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          {/* Copyright */}
-          <p className="text-gray-500 text-center md:text-left mb-4 md:mb-0">
+        <div className="flex flex-col items-center">
+          {/* Copyright - centered on both mobile and desktop */}
+          <p className="text-gray-500 text-center mb-4">
             © 2025 Abdul Saboor Tunio. All rights reserved.
           </p>
 
-          {/* Back to Top Button */}
+         
           <button
             onClick={scrollToTop}
-            className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-200"
+            className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors duration-200 md:hidden"
             aria-label="Scroll to top"
           >
             <ArrowUp size={20} />
