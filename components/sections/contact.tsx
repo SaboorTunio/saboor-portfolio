@@ -37,7 +37,8 @@ export default function ContactSection() {
     defaultValues: {
       name: '',
       email: '',
-      message: ''
+      message: '',
+      'bot-field': ''
     }
   });
 
@@ -63,7 +64,7 @@ export default function ContactSection() {
           name: data.name,
           email: data.email,
           message: data.message,
-          'bot-field': data.botpoison ? 'true' : 'false' // Using bot-field for spam protection
+          'bot-field': data['bot-field'] // Using bot-field for spam protection
         })
       });
 
@@ -75,9 +76,9 @@ export default function ContactSection() {
         // Hide success message after 5 seconds
         setTimeout(() => setSubmitSuccess(false), 5000);
       } else {
-        setSubmitError(result.message || 'Failed to send message. Please try again.');
-        // Set form-level error
-        setError('root', { message: result.message || 'Submission failed' });
+        const errorMessage = result.message || result.error || 'Failed to send message. Please try again.';
+        setSubmitError(errorMessage);
+        console.error('Submission error:', result);
       }
     } catch (error) {
       setSubmitError('An error occurred while sending the message. Please try again.');
@@ -145,7 +146,7 @@ export default function ContactSection() {
               </div>
 
               {/* Honeypot field for spam protection - should be hidden from users */}
-              <div className="hidden">
+              <div className="absolute -left-full -top-full -z-50 opacity-0 pointer-events-none">
                 <label htmlFor="bot-field">Don't fill this out if you're human:</label>
                 <input
                   id="bot-field"
