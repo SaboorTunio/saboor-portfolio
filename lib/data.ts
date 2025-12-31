@@ -15,10 +15,10 @@ export const educationData = [
 
 // Skills Data
 export const frontendSkills = [
-  { name: "Next.js", level: 90 },
-  { name: "React.js", level: 85 },
-  { name: "TypeScript", level: 80 },
-  { name: "JavaScript", level: 85 }
+  { name: "Next.js", level: 80 },
+  { name: "React.js", level: 75 },
+  { name: "TypeScript", level: 70 },
+  { name: "JavaScript", level: 75 }
 ];
 
 export const backendSkills = [
@@ -42,7 +42,7 @@ export const currentFocus = [
 
 // Social Links Data
 export const socialLinks = [
-  { id: 1, name: "GitHub", url: "#", icon: "github" },
-  { id: 2, name: "LinkedIn", url: "#", icon: "linkedin" },
-  { id: 3, name: "Email", url: "mailto:#", icon: "mail" }
+  { id: 1, name: "GitHub", url: "https://github.com/SaboorTunio", icon: "github" },
+  { id: 2, name: "LinkedIn", url: "https://linkedin.com/in/abdulsaboortunio", icon: "linkedin" },
+  { id: 3, name: "Email", url: "mailto:saboortunio2021@gmail.com", icon: "mail" }
 ];
