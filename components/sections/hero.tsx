@@ -15,6 +15,7 @@ export default function HeroSection() {
   const [animationPhase, setAnimationPhase] = useState<"intro" | "pause" | "deleting" | "final" | "complete">("intro");
   const [showSubheadline, setShowSubheadline] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
+  const [hasAnimationStarted, setHasAnimationStarted] = useState(false);
 
   const texts = [
     "Hi, I'm Saboor Tunio",
@@ -27,7 +28,7 @@ export default function HeroSection() {
     if (animationPhase === "intro" && displayText.length < currentText.length) {
       const timer = setTimeout(() => {
         setDisplayText(currentText.substring(0, displayText.length + 1));
-      }, 100);
+      }, 50); // Made typing faster from 100ms to 50ms per character
       return () => clearTimeout(timer);
     }
 
@@ -35,7 +36,7 @@ export default function HeroSection() {
       // Move to pause phase after typing completes
       const timer = setTimeout(() => {
         setAnimationPhase("pause");
-      }, 1500);
+      }, 500); // Reduced from 2000ms to 600ms
       return () => clearTimeout(timer);
     }
 
@@ -44,48 +45,71 @@ export default function HeroSection() {
       const timer = setTimeout(() => {
         setAnimationPhase("deleting");
         setIsDeleting(true);
-      }, 1500);
+      }, 500); // Reduced from 2000ms to 600ms
       return () => clearTimeout(timer);
     }
 
     if (animationPhase === "deleting" && displayText.length > 0) {
       const timer = setTimeout(() => {
         setDisplayText(displayText.slice(0, -1));
-      }, 50);
+      }, 20); // Made deletion faster from 50ms to 20ms per character
       return () => clearTimeout(timer);
     }
 
     if (animationPhase === "deleting" && displayText.length === 0) {
-      // Move to final phase after deletion completes
-      setCurrentIndex(1); // Switch to second text
-      setAnimationPhase("final");
+      // Move to next phase after deletion completes
+      if (currentIndex === 1) {
+        // If we just deleted the second text, go back to first text
+        setCurrentIndex(0);
+        setAnimationPhase("intro");
+      } else {
+        // If we just deleted the first text, go to second text
+        setCurrentIndex(1);
+        setAnimationPhase("final");
+      }
       setIsDeleting(false);
     }
 
     if (animationPhase === "final" && displayText.length < texts[1].length) {
       const timer = setTimeout(() => {
         setDisplayText(texts[1].substring(0, displayText.length + 1));
-      }, 100);
+      }, 50); // Made typing faster from 100ms to 50ms per character
       return () => clearTimeout(timer);
     }
 
     if (animationPhase === "final" && displayText.length === texts[1].length) {
-      // Animation complete
-      setAnimationPhase("complete");
+      // After second text is fully displayed for the first time, show subheadline and buttons
+      if (!hasAnimationStarted) {
+        setHasAnimationStarted(true);
 
-      // Show subheadline and buttons after a delay
-      const subheadlineTimer = setTimeout(() => {
-        setShowSubheadline(true);
-      }, 500);
+        // Show subheadline and buttons after a delay
+        const subheadlineTimer = setTimeout(() => {
+          setShowSubheadline(true);
+        }, 500);
 
-      const buttonsTimer = setTimeout(() => {
-        setShowButtons(true);
-      }, 1000);
+        const buttonsTimer = setTimeout(() => {
+          setShowButtons(true);
+        }, 1000);
 
-      return () => {
-        clearTimeout(subheadlineTimer);
-        clearTimeout(buttonsTimer);
-      };
+        // After showing the second text, start the repeating cycle
+        const cycleTimer = setTimeout(() => {
+          setAnimationPhase("deleting");
+          setIsDeleting(true);
+        }, 600); // Reduced from 2000ms to 600ms
+
+        return () => {
+          clearTimeout(subheadlineTimer);
+          clearTimeout(buttonsTimer);
+          clearTimeout(cycleTimer);
+        };
+      } else {
+        // For subsequent cycles, just start over after a pause
+        const timer = setTimeout(() => {
+          setAnimationPhase("deleting");
+          setIsDeleting(true);
+        }, 600); // Reduced from 2000ms to 600ms
+        return () => clearTimeout(timer);
+      }
     }
   }, [displayText, animationPhase, currentIndex, texts]);
 
@@ -164,7 +188,7 @@ export default function HeroSection() {
           >
             <motion.div
               animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               className="rounded-full border-4 border-cyan-500 shadow-[0_0_40px_rgba(6,182,212,0.6)] overflow-hidden w-48 h-48 md:w-64 md:h-64"
             >
               <Image
