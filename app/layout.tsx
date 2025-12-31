@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'Saboor-Tunio',
   description: 'Showcasing expertise in Next.js, Python, and Agentic AI with a futuristic Cyberpunk Glassmorphism aesthetic',
   icons: {
-    icon: '/favicon-temp.png',
+    icon: '/favicon-temp.png?v=2',
   },
 };
 
