@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 export default function SkillsSection() {
   return (
-    <section className="py-16 px-4">
+    <section id="skills" className="py-16 px-4">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           className="text-3xl font-bold text-center text-white mb-12 font-['Geist_Mono']"
