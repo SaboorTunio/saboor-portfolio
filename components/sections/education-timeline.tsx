@@ -9,7 +9,7 @@ export default function EducationTimeline() {
   const giaicEducation = educationData[0]; // Existing GIAIC education entry
 
   return (
-    <section id="journey" className="py-16 px-4">
+    <section id="education" className="py-16 px-4">
       <div className="max-w-4xl mx-auto">
         <motion.h2
           className="text-3xl font-bold text-center text-white mb-12 font-['Geist_Mono']"
