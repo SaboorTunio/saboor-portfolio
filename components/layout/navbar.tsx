@@ -49,13 +49,15 @@ export default function Navbar() {
   return (
     <>
       <motion.nav
-        className="w-[70vw] mx-auto mt-4 z-50 fixed left-0 right-0"
+        className="w-11/12 max-w-4xl mx-auto mt-4 z-50 fixed left-0 right-0 px-4"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }}
       >
-        <div className="bg-black/50 backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex justify-between items-center w-full">
-          <span className="text-white font-bold hidden md:block">Portfolio</span>
+        <div className="bg-black/50 backdrop-blur-md border border-white/10 rounded-full px-4 py-3 flex justify-between items-center w-full md:px-6">
+          <div className="flex items-center">
+            <span className="text-white font-bold">Saboor Tunio's Portfolio</span>
+          </div>
           <NavLinks
             links={linksWithActiveState}
             className="hidden md:flex flex-row gap-6"
