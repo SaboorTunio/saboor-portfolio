@@ -5,21 +5,21 @@ export const defaultSocialLinks: SocialLink[] = [
   {
     name: 'GitHub',
     icon: Github,
-    url: 'https://github.com',
+    url: 'https://github.com/SaboorTunio',
     defaultColor: 'text-gray-400',
     hoverColor: 'text-white'
   },
   {
     name: 'LinkedIn',
     icon: Linkedin,
-    url: 'https://linkedin.com',
+    url: 'www.linkedin.com/in/abdulsaboortunio',
     defaultColor: 'text-gray-400',
     hoverColor: 'text-blue-500'
   },
   {
     name: 'Email',
     icon: Mail,
-    url: 'mailto:example@example.com',
+    url: 'mailto:saboortunio2021@gmail.com',
     defaultColor: 'text-gray-400',
     hoverColor: 'text-cyan-500'
   }
