@@ -125,7 +125,7 @@ export default function Footer() {
         <div className="flex flex-col items-center">
           {/* Copyright - centered on both mobile and desktop */}
           <p className="text-gray-500 text-center mb-4">
-            © 2025 Abdul Saboor Tunio. All rights reserved.
+            © 2026 Abdul Saboor Tunio. All rights reserved.
           </p>
 
          
