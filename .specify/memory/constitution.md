@@ -1,33 +1,30 @@
 <!-- SYNC IMPACT REPORT:
-Version change: 1.0.0 → 1.0.1
-Added sections: None
-Modified principles: Tech Stack Standardization (clarified tailwindcss-animate plugin)
-Removed sections: None
+Version change: 1.0.1 → 3.0.0
+Added sections: Identity, Education, Projects, Technical Stack, Design System
+Modified principles: All previous principles replaced with Saboor's Verified RAG Constitution v3
+Removed sections: Previous Personal Portfolio Constitution principles
 Templates requiring updates: ✅ No existing templates to update
 Follow-up TODOs: None
 -->
 
-# Personal Portfolio Constitution
+# Saboor's Verified RAG Constitution v3
 
 ## Core Principles
 
-### Tech Stack Standardization
-All development must use the specified technology stack: Next.js 15 (App Router) as the framework, TypeScript with Strict Mode for type safety, Tailwind CSS with tailwindcss-animate for styling, Lucide React for icons, and Framer Motion for all animations and interactions.
+### Identity Verification
+All interactions must be grounded in the verified identity of Abdul Saboor Tunio. The AI must refuse to answer questions unrelated to Saboor's skills, GitHub, or Portfolio.
 
-### Functional Component Architecture
-All components must be functional components only, avoiding class components. Use lucide-react for all icons to maintain consistency. Follow Feature-First or Atomic Design patterns for file structure with dedicated directories like components/ui and components/sections.
+### Educational Foundation
+The development approach must be based on the educational background from GIAIC (Artificial Intelligence, Metaverse & Web 3.0 - 2024-Present) with focus on AI Specialization. Previous education includes Intermediate Pre-Engineering (Physics, Chemistry, Math - 2023-2025).
 
-### Mobile-First Responsive Design
-All UI implementations must follow a mobile-first design pattern, ensuring that the application is fully responsive and accessible on all device sizes, starting from mobile and scaling up to desktop.
+### Project Portfolio Focus
+All development efforts must align with the core projects: Open-Ai-Agent-SDK (Agentic AI Framework), Gemini-CLI (Command line tool), Claude-Code (AI Dev Tool), and Saboor-Portfolio (Personal website). These serve as the primary showcase of capabilities.
 
-### Dark Mode Only Theme
-The application must implement dark mode exclusively with hardcoded dark backgrounds. No light mode toggles or theme switching functionality should be implemented.
+### Technical Stack Standardization
+All development must use the specified technology stack: Next.js 16 (App Router) as the framework, React 19 for the component library, Tailwind CSS for styling, OpenAI SDK (npm i openai) connected to OpenRouter for AI functionality, and hardcoded "Context Injection" (Lightweight RAG) using lib/ai-data.ts for data strategy.
 
-### Strict Validation Requirements
-All implementations must pass strict validation: ensure no hydration errors by using useClient directives where necessary, and all images must have appropriate alt tags for accessibility.
-
-### Animation Mandate
-All interactive elements must include animations using Framer Motion to provide smooth, engaging user experiences. No static transitions or default browser animations are permitted.
+### Design System Implementation
+All UI implementations must follow the Cyberpunk/Neon Glass aesthetic, creating a futuristic, high-tech visual experience that reflects modern AI capabilities.
 
 ## Coding Standards
 
@@ -39,14 +36,14 @@ Organize code using either Feature-First or Atomic Design principles. Create ded
 
 ## Validation Requirements
 
-### Hydration Error Prevention
-Ensure no hydration errors occur by properly using 'use client' directives where client-side functionality is required. Server and client components must be clearly distinguished and properly implemented.
+### AI Integration Standards
+All AI-related implementations must properly integrate with OpenAI SDK and OpenRouter, ensuring reliable API connections and proper error handling for AI responses.
 
-### Accessibility Standards
-All images must include descriptive alt tags to ensure accessibility compliance. All interactive elements must meet WCAG standards for keyboard navigation and screen reader compatibility.
+### Context Injection Protocol
+All data implementations must follow the lightweight RAG approach using lib/ai-data.ts for context injection, ensuring efficient data retrieval and presentation.
 
 ## Governance
 
-This constitution serves as the authoritative guide for all development decisions in the Personal Portfolio project. All code reviews, architectural decisions, and implementation choices must align with these principles. Any deviations require explicit approval and documentation of the business justification.
+This constitution serves as the authoritative guide for all development decisions in projects related to Abdul Saboor Tunio's portfolio. All code reviews, architectural decisions, and implementation choices must align with these principles. Any deviations require explicit approval and documentation of the business justification. The AI assistant must strictly adhere to these rules and refuse to answer questions outside the scope of Saboor's skills, GitHub, or Portfolio.
 
-**Version**: 1.0.1 | **Ratified**: 2025-12-28 | **Last Amended**: 2025-12-28
+**Version**: 3.0.0 | **Ratified**: 2026-01-04 | **Last Amended**: 2026-01-04
