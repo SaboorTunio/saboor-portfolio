@@ -3,6 +3,7 @@ import { Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/navbar';
 import Footer from '@/components/layout/footer';
+import ChatWidget from '@/components/chat-widget';
 
 const geistMono = Geist_Mono({ subsets: ['latin'] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <ChatWidget />
       </body>
     </html>
   );
