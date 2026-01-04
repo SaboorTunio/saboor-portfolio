@@ -121,7 +121,7 @@ export default function ChatWidget() {
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="fixed bottom-20 right-6 w-80 h-[500px] bg-black/90 backdrop-blur-xl border border-white/10
+            className="fixed bottom-20 right-6 w-80 h-[400px] bg-black/90 backdrop-blur-xl border border-white/10
                        rounded-xl shadow-2xl shadow-blue-500/20 z-50 flex flex-col"
           >
             {/* Header */}
