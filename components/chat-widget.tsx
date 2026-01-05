@@ -20,13 +20,19 @@ export default function ChatWidget() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate input before processing
     if (!inputValue.trim() || isLoading) return;
+
+    // Ensure we have a proper message structure
+    const userMessageContent = inputValue.trim();
+    if (!userMessageContent) return;
 
     // Add user message
     const userMessage = {
       id: Date.now().toString(),
       role: 'user',
-      content: inputValue
+      content: userMessageContent
     };
 
     setMessages(prev => [...prev, userMessage]);
@@ -40,17 +46,30 @@ export default function ChatWidget() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          messages: [{ role: 'user', content: inputValue }]
+          messages: [{ role: 'user', content: userMessageContent }]
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to get response');
+      // Check if the response indicates an error (status 500)
+      if (response.status === 500) {
+        let errorData: any = {};
+        try {
+          errorData = await response.json();
+        } catch (parseError) {
+          // If response is not JSON, create a default error object
+          errorData = { error: 'API Error', details: 'Non-JSON response received' };
+        }
+        console.error('API Error Response:', errorData);
+        throw new Error(`API Error: ${errorData.error || 'Unknown error'}${errorData.details ? ` - ${errorData.details}` : ''}`);
+      }
+
+      // For successful responses, proceed with streaming
+      if (!response.body) {
+        throw new Error('No response body received from API');
       }
 
       // Handle streaming response
-      const reader = response.body?.getReader();
-      if (!reader) return;
+      const reader = response.body.getReader();
 
       const decoder = new TextDecoder();
       let aiResponse = '';
@@ -59,10 +78,19 @@ export default function ChatWidget() {
       // Add an empty AI message to update in real-time
       setMessages(prev => [...prev, { id: aiMessageId, role: 'assistant', content: '' }]);
 
+      let lastMessageTime = Date.now();
+      const timeoutMs = 30000; // 30 second timeout
+
       while (true) {
+        // Add timeout check
+        if (Date.now() - lastMessageTime > timeoutMs) {
+          throw new Error('Response timeout');
+        }
+
         const { done, value } = await reader.read();
         if (done) break;
 
+        lastMessageTime = Date.now();
         const chunk = decoder.decode(value, { stream: true });
         aiResponse += chunk;
 
@@ -121,7 +149,7 @@ export default function ChatWidget() {
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="fixed bottom-20 right-6 w-80 h-[400px] bg-black/90 backdrop-blur-xl border border-white/10
+            className="fixed bottom-20 right-6 w-80 h-[350px] sm:h-[400px] md:h-[350px] bg-black/90 backdrop-blur-xl border border-white/10
                        rounded-xl shadow-2xl shadow-blue-500/20 z-50 flex flex-col"
           >
             {/* Header */}
