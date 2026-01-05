@@ -1,52 +1,46 @@
-import { OpenAI } from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
 import { PORTFOLIO_CONTEXT } from "@/lib/ai-data";
 
-// 1. Initialize Client with OpenRouter Base URL and Headers
-const openai = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENROUTER_API_KEY,
-  defaultHeaders: {
-    "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-    "X-Title": "Saboor Portfolio",
-  },
-});
-
 export async function POST(req: Request) {
   try {
-    // 2. Parse Body
-    const { messages } = await req.json();
-
-    if (!process.env.OPENROUTER_API_KEY) {
-      console.error("❌ Missing OPENROUTER_API_KEY in .env.local");
-      return NextResponse.json({ error: "Missing API Key" }, { status: 500 });
+    // 1. Setup Google Client
+    const apiKey = process.env.GOOGLE_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json({ error: "Missing GOOGLE_API_KEY" }, { status: 500 });
     }
 
-    console.log("📩 Chat API Request Received");
+    const genAI = new GoogleGenerativeAI(apiKey);
 
-    // 3. Create Completion
-    const completion = await openai.chat.completions.create({
-      model: "google/gemini-2.0-flash-exp:free", // Ensure this model ID is valid
-      messages: [
-        { role: "system", content: PORTFOLIO_CONTEXT },
-        ...messages,
-      ],
-      stream: true,
+    // 2. Configure Model with System Instruction (RAG)
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction: PORTFOLIO_CONTEXT,
     });
 
-    // 4. Return Stream (Standard method for Next.js App Router)
+    const { messages } = await req.json();
+
+    // 3. Extract last user message (Gemini SDK handles history differently,
+    // but for simple RAG, sending the prompt is often enough.
+    // For full history, we map standard messages to Gemini format).
+    const lastMessage = messages[messages.length - 1]?.content || "";
+
+    // 4. Generate Stream
+    const result = await model.generateContentStream(lastMessage);
+
+    // 5. Convert to ReadableStream for Frontend
     const stream = new ReadableStream({
       async start(controller) {
+        const encoder = new TextEncoder();
         try {
-          for await (const chunk of completion) {
-            const content = chunk.choices[0]?.delta?.content || "";
-            if (content) {
-              controller.enqueue(new TextEncoder().encode(content));
+          for await (const chunk of result.stream) {
+            const text = chunk.text();
+            if (text) {
+              controller.enqueue(encoder.encode(text));
             }
           }
-        } catch (error) {
-          console.error("🔥 Stream processing error:", error);
-          controller.error(error);
+        } catch (err) {
+          controller.error(err);
         } finally {
           controller.close();
         }
@@ -58,12 +52,21 @@ export async function POST(req: Request) {
     });
 
   } catch (error: any) {
-    // 5. Log the REAL error to the terminal
-    console.error("🔥 Chat API Error:", error);
+    console.error("🔴 Gemini API Error:", error);
 
-    // Check if it's a rate limit error (429) or other specific API errors
-    // OpenAI error objects may have different properties depending on the error type
-    if (error.status === 429 || (error.error && error.error.code === 'rate_limit_exceeded')) {
+    // Check if it's an API key error or other specific error
+    if (error.status === 400 || error.status === 401 || error.status === 403) {
+      return NextResponse.json(
+        {
+          error: "API Authentication Error",
+          details: "Invalid or missing API key"
+        },
+        { status: error.status }
+      );
+    }
+
+    // Check for quota or billing errors
+    if (error.status === 429) {
       return NextResponse.json(
         {
           error: "Rate limit exceeded",
