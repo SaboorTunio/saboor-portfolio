@@ -50,14 +50,29 @@ export default function ChatWidget() {
         }),
       });
 
-      // Check if the response indicates an error (status 500)
-      if (response.status === 500) {
+      // Check if the response indicates an error (status 500 or other error status)
+      if (response.status >= 400) {
         let errorData: any = {};
         try {
-          errorData = await response.json();
+          // Try to parse the JSON response
+          const responseBody = await response.text(); // Get response as text first
+          if (responseBody && responseBody.trim()) {
+            // If there's a response body, try to parse it as JSON
+            errorData = JSON.parse(responseBody);
+          } else {
+            // If no response body, create a default error object
+            errorData = {
+              error: `API Error ${response.status}`,
+              details: `HTTP ${response.status} - Empty response body`
+            };
+          }
         } catch (parseError) {
           // If response is not JSON, create a default error object
-          errorData = { error: 'API Error', details: 'Non-JSON response received' };
+          // This can happen if the server returns an error without proper JSON
+          errorData = {
+            error: `API Error ${response.status}`,
+            details: `HTTP ${response.status} - Non-JSON response received`
+          };
         }
         console.error('API Error Response:', errorData);
         throw new Error(`API Error: ${errorData.error || 'Unknown error'}${errorData.details ? ` - ${errorData.details}` : ''}`);
