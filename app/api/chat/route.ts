@@ -23,7 +23,20 @@ export async function POST(req: Request) {
     // 3. Extract last user message (Gemini SDK handles history differently,
     // but for simple RAG, sending the prompt is often enough.
     // For full history, we map standard messages to Gemini format).
+    if (!messages || messages.length === 0) {
+      return NextResponse.json(
+        { error: "No messages provided" },
+        { status: 400 }
+      );
+    }
+
     const lastMessage = messages[messages.length - 1]?.content || "";
+    if (!lastMessage.trim()) {
+      return NextResponse.json(
+        { error: "Empty message content" },
+        { status: 400 }
+      );
+    }
 
     // 4. Generate Stream
     const result = await model.generateContentStream(lastMessage);
